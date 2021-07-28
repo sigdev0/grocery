@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { View, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { theme } from "../core/theme";
 
 export default function TextField({
   width,
@@ -16,7 +17,7 @@ export default function TextField({
   return (
     <View style={{ ...styles.searchSection, width: width }}>
       <View style={styles.searchContainer}>
-        <FontAwesome5 name="search" size={18} color="#655DB0" />
+        <FontAwesome5 name="search" size={18} color={theme.colors.secondary} />
         <TextInput
           value={value}
           style={styles.input}
@@ -26,7 +27,7 @@ export default function TextField({
         />
         {!!value && (
           <TouchableOpacity onPress={() => callOnChange("")}>
-            <FontAwesome5 name="times" size={18} color="#655DB0" />
+            <FontAwesome5 name="times" size={18} color={theme.colors.primary} />
           </TouchableOpacity>
         )}
       </View>

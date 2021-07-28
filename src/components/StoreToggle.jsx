@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { theme } from "../core/theme";
 
 export default function StoreToggle({ active, onToggle }) {
   const handleToggle = (name) => {
@@ -9,11 +10,13 @@ export default function StoreToggle({ active, onToggle }) {
     onToggle(name);
   };
 
-  const bgColorFruit = active === "FRUIT" ? "#655DB0" : "transparent";
-  const bgColorVeggie = active === "VEGGIE" ? "#655DB0" : "transparent";
+  const bgColorFruit =
+    active === "FRUIT" ? theme.colors.primary : "transparent";
+  const bgColorVeggie =
+    active === "VEGGIE" ? theme.colors.primary : "transparent";
 
-  const borderFruit = active === "VEGGIE" ? "#cccccc" : "#655DB0";
-  const borderVeggie = active === "FRUIT" ? "#cccccc" : "#655DB0";
+  const borderFruit = active === "VEGGIE" ? "#cccccc" : theme.colors.primary;
+  const borderVeggie = active === "FRUIT" ? "#cccccc" : theme.colors.primary;
 
   const textFruit = active === "VEGGIE" ? "#424242" : "#FFFFFF";
   const textVeggie = active === "FRUIT" ? "#424242" : "#FFFFFF";

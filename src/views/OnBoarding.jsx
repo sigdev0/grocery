@@ -3,6 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Text, Image, View, StyleSheet, Animated } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { setOnboardFlag } from "../services";
+import { theme } from "../core/theme";
 
 const meta = {
   0: {
@@ -27,8 +28,20 @@ export default function OnBoarding({ navigation }) {
   const [metaIndex, setMetaIndex] = useState(0);
   const animatedValue = useRef(new Animated.Value(0)).current;
 
-  const viewBgRange = ["#655DB0", "#655DB0", "#655DB0", "#F2F2F2", "#F2F2F2"];
-  const buttonBgRange = ["#F2F2F2", "#F2F2F2", "#F2F2F2", "#655DB0", "#655DB0"];
+  const viewBgRange = [
+    theme.colors.primary,
+    theme.colors.primary,
+    theme.colors.primary,
+    "#F2F2F2",
+    "#F2F2F2",
+  ];
+  const buttonBgRange = [
+    "#F2F2F2",
+    "#F2F2F2",
+    "#F2F2F2",
+    theme.colors.primary,
+    theme.colors.primary,
+  ];
 
   const animateSlider = () =>
     Animated.timing(animatedValue, {
@@ -154,7 +167,7 @@ export default function OnBoarding({ navigation }) {
               <FontAwesome5
                 size={24}
                 name="chevron-right"
-                color={isButtonColorEven ? "#F2F2F2" : "#655DB0"}
+                color={isButtonColorEven ? "#F2F2F2" : theme.colors.primary}
               />
             </Animated.View>
           </TouchableOpacity>

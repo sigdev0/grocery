@@ -3,6 +3,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Image, View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SharedElement } from "react-navigation-shared-element";
+import { theme } from "../core/theme";
+import { convertToRupiah } from "../helpers/rupiahConverter";
 
 export default function CartCard({ navigation, data, cart, onUpdate }) {
   const { id, name, image, color, price, weight } = data;
@@ -21,7 +23,11 @@ export default function CartCard({ navigation, data, cart, onUpdate }) {
           onPress={() => navigation.push("Detail", { item: data })}
         >
           <SharedElement id={`item.${id}.photo`}>
-            <Image style={styles.photo} resizeMode="contain" source={image} />
+            <Image
+              style={styles.photo}
+              resizeMode="contain"
+              source={{ uri: image[0] }}
+            />
           </SharedElement>
         </TouchableOpacity>
         <View style={{ padding: 8, paddingLeft: 16 }}>
@@ -29,29 +35,24 @@ export default function CartCard({ navigation, data, cart, onUpdate }) {
           <View style={styles.countIconBox}>
             <TouchableOpacity
               style={styles.countIcon}
-              onPress={() => handleUpdate("PLUS")}
-            >
-              <FontAwesome5 name="plus" size={12} color="#FFFFFF" />
-            </TouchableOpacity>
-            <Text style={styles.count}>{cart[id]}</Text>
-            <TouchableOpacity
-              style={styles.countIcon}
               onPress={() => handleUpdate("MINUS")}
             >
               <FontAwesome5 name="minus" size={12} color="#FFFFFF" />
             </TouchableOpacity>
+            <Text style={styles.count}>{cart[id]}</Text>
+            <TouchableOpacity
+              style={styles.countIcon}
+              onPress={() => handleUpdate("PLUS")}
+            >
+              <FontAwesome5 name="plus" size={12} color="#FFFFFF" />
+            </TouchableOpacity>
+
             <Text style={styles.weight}>x {weight}</Text>
           </View>
         </View>
       </View>
       <View style={styles.priceBox}>
-        <FontAwesome5
-          style={{ paddingTop: 2, paddingRight: 2 }}
-          name="rupee-sign"
-          color="#424242"
-          size={12}
-        />
-        <Text style={styles.price}>{price * cart[id]}</Text>
+        <Text style={styles.price}>{convertToRupiah(price * cart[id])}</Text>
         <TouchableOpacity onPress={() => handleUpdate("DELETE")}>
           <FontAwesome5 name="trash-alt" size={20} color="#424242" />
         </TouchableOpacity>
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   countIcon: {
-    backgroundColor: "#655DB0",
+    backgroundColor: theme.colors.primary,
     borderRadius: 4,
     paddingLeft: 5,
     paddingRight: 5,

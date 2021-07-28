@@ -3,7 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ScrollView, StyleSheet, Dimensions, View, Text } from "react-native";
-
+import { convertToRupiah } from "../helpers/rupiahConverter";
 import { getGroceryItem } from "../services";
 import {
   addToCart,
@@ -11,6 +11,7 @@ import {
   removeFromCart,
 } from "../store/actions/grocery";
 import { CartCard, EmptyState } from "../components";
+import { theme } from "../core/theme";
 
 function Cart({ navigation }) {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function Cart({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const keys = Object.keys(cart).filter((key) => !!cart[key]);
+      const keys = Object.keys(cart).filter((id) => !!cart[id]);
       const promises = keys.map((id) => getGroceryItem(id));
       const data = (await Promise.all(promises)).map((d) => d.data);
 
@@ -88,12 +89,6 @@ function Cart({ navigation }) {
                 Total
               </Text>
               <View style={{ flexDirection: "row", alignContent: "center" }}>
-                <FontAwesome5
-                  size={20}
-                  color="#424242"
-                  name="rupee-sign"
-                  style={{ paddingTop: 7, paddingRight: 2 }}
-                />
                 <Text
                   style={{
                     fontSize: 24,
@@ -101,13 +96,13 @@ function Cart({ navigation }) {
                     fontFamily: "Montserrat-SemiBold",
                   }}
                 >
-                  {total}
+                  {convertToRupiah(total)}
                 </Text>
               </View>
             </View>
             <TouchableOpacity
               style={{
-                backgroundColor: "#655DB0",
+                backgroundColor: theme.colors.primary,
                 borderRadius: 16,
                 padding: 16,
               }}

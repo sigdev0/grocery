@@ -24,7 +24,8 @@
     },
     "android": {
       "package": "com.spanion.grocery",
-      "versionCode": 1
+      "versionCode": 1,
+      "softwareKeyboardLayoutMode": "pan"
     }
   }
 }
